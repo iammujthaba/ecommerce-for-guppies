@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block metadescription %}
+    This is the cart page. Proceed to review your items and place the order.
+{% endblock %}
+
+{% block title %}
+    Cart - Ecommerce
+{% endblock %}
+
+{% block content %}
+    {% if not cart_items %}
+        <div>
+            <div class="text-center">
+                <br>
+                <h1>Your shopping cart is empty.</h1>
+                <p>Please click <a href="{% url 'ecommerce_app:allProdCat' %}"><b>here</b></a> to continue shopping.</p>
+            </div>
+        </div>
+    {% else %}
+        <div class="text-center">
+            <h1>Your shopping cart</h1>
+        </div>
+        <div class="row">
+            {% for cart_item in cart_items %}
+                <div class="col-lg-6 text-center">
+                    <a href="{{ cart_item.product.get_absolute_url }}">
+                        <img src="{{ cart_item.product.image.url }}" alt="" class="float-left rounded" width="50%">
+                    </a>
+                </div>
+                <div class="col-lg-6">
+                    {{ cart_item.product.name }}
+                    <br>
+                    SKU: {{ cart_item.product.id }}
+                    <br>
+                    Price: {{ cart_item.product.price }}
+                    <br>
+                    Qty: {{ cart_item.quantity }} X ${{ cart_item.product.price }}
+                    <br>
+                    Total: {{ cart_item.sub_total }}
+
+                    {% if cart_item.quantity < cart_item.product.stock %}
+                        <div>
+                            <a href="{% url 'cart_app:add_cart' cart_item.product.id %}"><i class="fa-solid fa-plus"></i></a>
+                            <a href="{% url 'cart_app:cart_remove' cart_item.product.id %}"><i class="fa-solid fa-minus"></i></a>
+                            <a href="{% url 'cart_app:full_remove' cart_item.product.id %}"><i class="fa-solid fa-trash"></i></a>
+                        </div>
+                    {% else %}
+                        <div>
+                            <a href="{% url 'cart_app:cart_remove' cart_item.product.id %}"><i class="fa-solid fa-minus"></i></a>
+                            <a href="{% url 'cart_app:full_remove' cart_item.product.id %}"><i class="fa-solid fa-trash"></i></a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="col-lg-12">
+            <div class="text-center">
+                <h3>CHECKOUT</h3>
+                <h3>Your total is: <b>{{ total }}</b></h3>
+                <p>Please review your items before placing an order.</p>
+            </div>
+        </div>
+        <div class="mx-auto text-center mb-4">
+            <a href="{% url 'ecommerce_app:allProdCat' %}" class="btn btn-secondary btn-block">Continue shopping</a>
+        </div>
+    {% endif %}
+{% endblock %}

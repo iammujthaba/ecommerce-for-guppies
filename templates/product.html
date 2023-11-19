@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block metadescription %}
+    {{ product.description | truncatewords:50 }}
+{% endblock %}
+
+{% block title %}
+    {% if category %}
+        {{ product.name}} - ecommerce store
+    {% endif %}
+{% endblock %}
+
+<!-- for base.html body condent -->
+{% block content %}
+    <div>
+        <!-- this line of code is for path presentetion -->
+        <p><a href="{% url 'ecommerce_app:allProdCat' %}">Home</a> >
+             <a href="{{ product.category.get_url}}">{{product.category}}</a> > 
+             {{product.name}}
+        </p>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 text-center p-4">
+            <img src="{{product.image.url}}" alt="{{product.name}}" style="height: 250px;">
+        </div>
+        <div class="col-lg-6 p-4">
+            <H1>{{product.name}}</H1>
+            <h3>${{product.price}}</h3>
+            <h6>Product Discription</h6>
+            <P>{{product.description}}</P>
+
+            {% if product.stock <= 0 %}
+                <p><b>Out of stock</b></p>
+            {% else %}
+                <a href="{% url 'cart_app:add_cart' product.id %}" class="btn btn-primary">add to cart</a>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------ -->
+
+

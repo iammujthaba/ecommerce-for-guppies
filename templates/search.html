@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- for base.html meta, title -->
+{% block metadescription %}
+    we have verty of products.
+{% endblock %}
+
+{% block title %}
+    search
+{% endblock %}
+
+{% block content %}
+    <div>
+        <p>you have search for: <b>'{{query}}'</b></p>
+    </div>
+    <div class="row m-2">
+        {% for product in products %}
+        <div class="card col-lg-4 m-2" style="width: 18rem;">
+            <a href="{{product.get_url}}">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text">{{ product.price }}</p>
+              <a href="#" class="btn btn-primary">Add to Cart</a>
+            </div>
+        </div>
+
+        {% empty %}
+        <div>
+            <p> 0 result found </p>
+        </div>
+        
+        {% endfor %}
+    </div>
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------ -->
+
+
