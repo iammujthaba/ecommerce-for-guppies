@@ -16,3 +16,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+$(document).ready(function() {
+  $('.carousel').on('slid.bs.carousel', function() {
+    const activeSlide = $(this).find('.carousel-item.active');
+    const videoElement = activeSlide.find('video');
+
+    if (videoElement.length) {
+      videoElement.get(0).muted = true; // Mute the video first
+      videoElement.get(0).play(); // Play the video
+    }
+  });
+});
+

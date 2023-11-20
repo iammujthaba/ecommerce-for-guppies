@@ -8,8 +8,8 @@ class CategoryAdmin(admin.ModelAdmin):
 admin.site.register(Category,CategoryAdmin)
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price', 'stock', 'available', 'category', 'created', 'update']
-    list_editable = ['price', 'stock', 'available']
+    list_display = ['name', 'old_price','new_price', 'stock', 'available','new', 'category','update']
+    list_editable = ['new_price','old_price','new', 'stock', 'available']
     prepopulated_fields = {'slug':('name',)}
     list_per_page = 20
 admin.site.register(Product,ProductAdmin)

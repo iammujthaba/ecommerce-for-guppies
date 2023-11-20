@@ -5,7 +5,6 @@ from django.urls import reverse
 class Category(models.Model):
     name = models.CharField(max_length=250,unique=True)
     slug = models.SlugField(max_length=250,unique=True)
-    description = models.TextField(blank=True)
     image = models.ImageField(upload_to='category', blank=True)
 
     class Meta:
@@ -24,17 +23,27 @@ class Product(models.Model):
     name = models.CharField(max_length=250,unique=True)
     slug = models.SlugField(max_length=250,unique=True)
     description = models.TextField(blank=True)
-    price = models.DecimalField(max_digits=10,decimal_places=2)
+    old_price = models.DecimalField(max_digits=10,decimal_places=2,blank=True)
+    new_price = models.DecimalField(max_digits=10,decimal_places=2)
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
     # "blank=True" is for optional
-    image = models.ImageField(upload_to='product', blank=True)
+    image_1 = models.ImageField(upload_to='product')
+    image_2 = models.ImageField(upload_to='product')
+    video_file = models.FileField(upload_to='videos')
     stock = models.IntegerField()
     available = models.BooleanField(default=True)
+    new = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     update = models.DateField(auto_now=True)
 
     def get_url(self):
         return reverse('ecommerce_app:proDetail',args=[self.category.slug,self.slug])
+
+    def get_discounted_price(self):
+        if self.old_price and self.new_price:
+            discount_percentage = ((self.old_price - self.new_price) / self.old_price) * 100
+            return int(round(discount_percentage))
+        return None
 
     class Meta:
         ordering = ('name',)
