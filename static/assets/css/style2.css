@@ -199,7 +199,7 @@ margin-bottom: 14px;
 }
 }
 
-.cart-heading {
+.cart-heading,body > div > main > nav > div > ol > li:nth-child(2) {
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
@@ -211,5 +211,14 @@ margin-bottom: 14px;
   left: 50%;
   transform: translate(-50%, 30%);
   width: 100%;
+  height: auto;
+}
+
+
+
+
+
+.cart-img {
+  width: 80px;
   height: auto;
 }

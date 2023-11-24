@@ -96,72 +96,20 @@
                     <div class="header-right">
 
                         <div class="dropdown cart-dropdown">
-                            <a href="cart/" class="dropdown-toggle" role="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false" data-display="static">
+
+                            
+                            <a href="{% url 'cart_app:cart_detail' %}" class="dropdown-toggle">
                                 <div class="icon">
                                     <i class="icon-shopping-cart"></i>
-                                    <span class="cart-count">2</span>
+                                    {% if item_count > 0 %}
+                                    <span class="cart-count">{{item_count}}</span>
+                                    {% endif %}
                                 </div>
                                 <p>Cart</p>
                             </a>
+                            
 
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <div class="dropdown-cart-products">
-                                    <div class="product">
-                                        <div class="product-cart-details">
-                                            <h4 class="product-title">
-                                                <a href="product.html">Beige knitted elastic runner shoes</a>
-                                            </h4>
-
-                                            <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $84.00
-                                            </span>
-                                        </div><!-- End .product-cart-details -->
-
-                                        <figure class="product-image-container">
-                                            <a href="product.html" class="product-image">
-                                                <img src="{% static 'assets/images/products/cart/product-1.jpg' %}" alt="product">
-                                            </a>
-                                        </figure>
-                                        <a href="#" class="btn-remove" title="Remove Product"><i
-                                                class="icon-close"></i></a>
-                                    </div><!-- End .product -->
-
-                                    <div class="product">
-                                        <div class="product-cart-details">
-                                            <h4 class="product-title">
-                                                <a href="product.html">Blue utility pinafore denim dress</a>
-                                            </h4>
-
-                                            <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $76.00
-                                            </span>
-                                        </div><!-- End .product-cart-details -->
-
-                                        <figure class="product-image-container">
-                                            <a href="product.html" class="product-image">
-                                                <img src="{% static 'assets/images/products/cart/product-2.jpg' %}" alt="product">
-                                            </a>
-                                        </figure>
-                                        <a href="#" class="btn-remove" title="Remove Product"><i
-                                                class="icon-close"></i></a>
-                                    </div><!-- End .product -->
-                                </div><!-- End .cart-product -->
-
-                                <div class="dropdown-cart-total">
-                                    <span>Total</span>
-
-                                    <span class="cart-total-price">$160.00</span>
-                                </div><!-- End .dropdown-cart-total -->
-
-                                <div class="dropdown-cart-action">
-                                    <a href="cart/" class="btn btn-primary">View Cart</a>
-                                    <a href="checkout/" class="btn btn-outline-primary-2"><span>Checkout</span><i
-                                            class="icon-long-arrow-right"></i></a>
-                                </div><!-- End .dropdown-cart-total -->
-                            </div><!-- End .dropdown-menu -->
+                            
                         </div><!-- End .cart-dropdown -->
                     </div><!-- End .header-right -->
                 </div><!-- End .container -->
@@ -218,7 +166,7 @@
                         </div><!-- End .col-sm-6 col-lg-3 -->
 
                         <div class="col-md-12">
-                            <div class="social-icons social-icons-colored justify-content-center mb-3">
+                            <div class="social-icons social-icons-colored justify-content-around mb-3">
                                 <a href="#" class="social-icon social-facebook" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
                                 <a href="#" class="social-icon social-whatsapp" title="WhatsApp" target="_blank" style="background-color: #25d366;"><i class="icon-whatsapp"></i></a>
                                 <a href="#" class="social-icon social-instagram" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
@@ -232,25 +180,10 @@
 
                                 <ul class="widget-list">
                                     <li><a href="about/">About me</a></li>
-                                    <li><a href="#">Our Services</a></li>
-                                    <li><a href="#">How to shop on guppies</a></li>
+                                    <li><a href="#">Money-back guarantee!</a></li>
+                                    <li><a href="#">Shipping</a></li>
                                     <li><a href="faq/">FAQ</a></li>
                                     <li><a href="contact/">Contact us</a></li>
-                                </ul><!-- End .widget-list -->
-                            </div><!-- End .widget -->
-                        </div><!-- End .col-sm-6 col-lg-3 -->
-
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="widget">
-                                <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
-
-                                <ul class="widget-list">
-                                    <li><a href="#">Payment Methods</a></li>
-                                    <li><a href="#">Money-back guarantee!</a></li>
-                                    <li><a href="#">Returns</a></li>
-                                    <li><a href="#">Shipping</a></li>
-                                    <li><a href="#">Terms and conditions</a></li>
-                                    <li><a href="#">Privacy Policy</a></li>
                                 </ul><!-- End .widget-list -->
                             </div><!-- End .widget -->
                         </div><!-- End .col-sm-6 col-lg-3 -->
@@ -258,7 +191,11 @@
                     </div><!-- End .row -->
                 </div><!-- End .container -->
             </div><!-- End .footer-middle -->
-
+            <div class="text-center">
+                <a href="">    
+                    <p class="footer-copyright">About Devolopper</p>
+                </a>
+            </div>
             <div class="footer-bottom">
                 <div class="container">
                     <p class="footer-copyright">Copyright © 2023 CK Guppies & Bettas.</p>
@@ -312,10 +249,10 @@
                     <nav class="mobile-nav">
                         <ul class="mobile-menu">
                             <li class="active">
-                                <a href="index.html">Home</a>
+                                <a href="{% url 'ecommerce_app:allProdCat' %}">Home</a>
                             </li>
                             <li>
-                                <a href="shop/">Shop</a>
+                                <a href="{% url 'ecommerce_app:allProductListing' %}">Shop</a>
                             </li>
                             <li>
                                 <a href="cart/">Cart</a>

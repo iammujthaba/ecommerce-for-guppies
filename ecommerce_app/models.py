@@ -28,8 +28,9 @@ class Product(models.Model):
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
     # "blank=True" is for optional
     image_1 = models.ImageField(upload_to='product')
-    image_2 = models.ImageField(upload_to='product')
-    video_file = models.FileField(upload_to='videos')
+    image_2 = models.ImageField(upload_to='product',blank=True)
+    image_3 = models.ImageField(upload_to='product',blank=True)
+    video_file = models.FileField(upload_to='videos',blank=True)
     stock = models.IntegerField()
     available = models.BooleanField(default=True)
     new = models.BooleanField(default=True)
