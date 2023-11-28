@@ -79,6 +79,10 @@
                                             <p>{{product.description}}. </p>
                                         </div><!-- End .product-content -->
 
+                                    {% if product.stock <= 0 %}
+                                        <H5 style="color: #777;"><b>Out of stock</b></H5>
+                                    {% else %}
+
                                         <div class="details-filter-row details-row-size">
                                             <label for="qty">Pair:</label>
                                             <div class="product-details-quantity">
@@ -101,11 +105,9 @@
                                         
                                         <div class="product-details-action">
 
-                                        {% if product.stock <= 0 %}
-                                            <p><b>Out of stock</b></p>
-                                        {% else %}
-                                            <a href="{% url 'cart_app:add_cart' product.id %}" class="btn-product btn-cart"><span>add to cart</span></a>
-                                        {% endif %}
+
+                                        <a href="{% url 'cart_app:add_cart' product.id %}" class="btn-product btn-cart"><span>add to cart</span></a>
+                                    {% endif %}
 
 
                                         </div><!-- End .product-details-action -->

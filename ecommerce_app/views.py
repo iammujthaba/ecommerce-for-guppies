@@ -98,3 +98,20 @@ def offerProductListing(request):
         products = paginator.page(paginator.num_pages)
         
     return render(request,'shop.html',{'products':products})
+
+    
+
+def about(request):
+    return render(request,'about.html')
+
+def gallery(request):
+    return render(request,'gallery.html')
+
+def contact(request):
+    return render(request,'contact.html')
+
+def faq(request):
+    return render(request,'faq.html')
+
+def devolopper(request):
+    return render(request,'About_Devolopper.html')

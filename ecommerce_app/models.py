@@ -42,8 +42,10 @@ class Product(models.Model):
 
     def get_discounted_price(self):
         if self.old_price and self.new_price:
-            discount_percentage = ((self.old_price - self.new_price) / self.old_price) * 100
-            return int(round(discount_percentage))
+            diff = self.old_price - self.new_price
+            discount_percentage = ((diff) / self.old_price) * 100
+            percentage = int(round(discount_percentage))
+            return dict(percentage=percentage, diff=diff)
         return None
 
     class Meta:

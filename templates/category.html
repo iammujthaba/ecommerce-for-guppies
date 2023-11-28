@@ -158,7 +158,7 @@
                                         {% endif %}
 
                                         {% if product.get_discounted_price %}
-                                        <span class="product-discount-label">{{ product.get_discounted_price }}%</span>
+                                        <span class="product-discount-label">{{ product.get_discounted_price.percentage }}%</span>
                                         {% endif %}
                                         <a class="carousel-control-prev" href="#carouselExampleIndicators{{product.slug}}" role="button"
                                             data-slide="prev">
@@ -283,7 +283,7 @@
                                             {% endif %}
     
                                             {% if product.get_discounted_price %}
-                                            <span class="product-discount-label">{{ product.get_discounted_price }}%</span>
+                                            <span class="product-discount-label">{{ product.get_discounted_price.percentage }}%</span>
                                             {% endif %}
                                             <a class="carousel-control-prev" href="#carouselExampleIndicators2{{product.slug}}" role="button"
                                                 data-slide="prev">
@@ -528,7 +528,7 @@
                             <div class="col-md-12">
     
                                 <div class="text-center pt-3 pb-3">
-                                    <a href="faq/" class="btn btn-outline-dark-2 btn-round btn-more">
+                                    <a href="{% url 'ecommerce_app:faq' %}" class="btn btn-outline-dark-2 btn-round btn-more">
                                         <span>Read more</span>
                                         <i class="icon-long-arrow-right"></i></a>
                                 </div>
@@ -579,7 +579,7 @@
                                 {% endif %}
 
                                 {% if product.get_discounted_price %}
-                                <span class="product-discount-label">{{ product.get_discounted_price }}%</span>
+                                <span class="product-discount-label">{{ product.get_discounted_price.percentage }}%</span>
                                 {% endif %}
                                 <a class="carousel-control-prev" href="#carouselExampleIndicators1{{product.slug}}" role="button"
                                     data-slide="prev">

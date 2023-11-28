@@ -80,10 +80,11 @@
 
                     </div><!-- End .header-left -->
 
-                    <!-- <div class="header-center">
+                    <div class="header-center">
                         <div class="header-search header-search-extended header-search-visible d-none d-lg-block">
-                            <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
-                            <form action="#" method="get">
+                            <a href="{% url 'search_app:SearchResult' %}" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                            <form action="{% url 'search_app:SearchResult' %}" method="get">
+                                {% csrf_token %}
                                 <div class="header-search-wrapper search-wrapper-wide">
                                     <label for="q" class="sr-only">Search</label>
                                     <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
@@ -91,7 +92,7 @@
                                 </div>
                             </form>
                         </div>
-                    </div> -->
+                    </div>
 
                     <div class="header-right">
 
@@ -120,25 +121,28 @@
                     <div class="header-center">
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
-                                <li class="megamenu-container active">
-                                    <a href="index.html">Home</a>
+                                <li class="megamenu-container {% if request.path == '/ecommerce/' %}active{% endif %}">
+                                    <a href="{% url 'ecommerce_app:allProdCat' %}">Home</a>
                                 </li>
-                                <li>
-                                    <a href="shop/">Shop</a>
+                                <li class="megamenu-container {% if request.path == '/ecommerce/shop/' %}active{% endif %}">
+                                    <a href="{% url 'ecommerce_app:allProductListing' %}">Shop</a>
                                 </li>
-                                <li>
-                                    <a href="cart/">Cart</a>
+                                <li class="{% if request.path == '/cart/' %}active{% endif %}">
+                                    <a href="{% url 'cart_app:cart_detail' %}">Cart</a>
                                 </li>
-                                <li>
+                                <li class="{% if request.path == '/ecommerce/account/' %}active{% endif %}">
                                     <a href="login&register/">Account</a>
                                 </li>
-                                <li>
-                                    <a href="gallery/">Gallery</a>
+                                <li class="{% if request.path == '/ecommerce/gallery/' %}active{% endif %}">
+                                    <a href="{% url 'ecommerce_app:gallery' %}">Gallery</a>
                                 </li>
-                                <li>
-                                    <a href="about/">About</a>
-                                </li> 
-                            </ul><!-- End .menu -->
+                                <li class="{% if request.path == '/ecommerce/about/' %}active{% endif %}">
+                                    <a href="{% url 'ecommerce_app:about' %}">About Us</a>
+                                </li>
+                                <li class="{% if request.path == '/ecommerce/contact/' %}active{% endif %}">
+                                    <a href="{% url 'ecommerce_app:contact' %}">Contact</a>
+                                </li>
+                            </ul>
                         </nav><!-- End .main-nav -->
                     </div><!-- End .header-center -->
 
@@ -191,14 +195,14 @@
                     </div><!-- End .row -->
                 </div><!-- End .container -->
             </div><!-- End .footer-middle -->
-            <div class="text-center">
-                <a href="">    
-                    <p class="footer-copyright">About Devolopper</p>
+            <div>
+                <a href="{% url 'ecommerce_app:devolopper' %}">    
+                    <p class="footer-copyright text-center">About Devolopper</p>
                 </a>
             </div>
             <div class="footer-bottom">
                 <div class="container">
-                    <p class="footer-copyright">Copyright © 2023 CK Guppies & Bettas.</p>
+                    <p class="footer-copyright text-center">Copyright © 2023 CK Guppies & Bettas.</p>
                     <!-- End .footer-copyright -->
                     <!-- <figure class="footer-payments">
                         <img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
@@ -226,11 +230,15 @@
         <div class="mobile-menu-wrapper">
             <span class="mobile-menu-close"><i class="icon-close"></i></span>
 
-            <!-- <form action="#" method="get" class="mobile-search">
+            <form action="{% url 'search_app:SearchResult' %}" method="get" class="mobile-search">
+                {% csrf_token %}
+
                 <label for="mobile-search" class="sr-only">Search</label>
-                <input type="search" class="form-control" name="mobile-search" id="mobile-search" placeholder="Search in..." required>
-                <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
-            </form> -->
+                <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
+                <a href="{% url 'search_app:SearchResult' %}">
+                    <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+                </a>
+            </form>
 
             <ul class="nav nav-pills-mobile nav-border-anim" role="tablist">
                 <li class="nav-item">
@@ -255,16 +263,19 @@
                                 <a href="{% url 'ecommerce_app:allProductListing' %}">Shop</a>
                             </li>
                             <li>
-                                <a href="cart/">Cart</a>
+                                <a href="{% url 'cart_app:cart_detail' %}">Cart</a>
                             </li>
                             <li>
                                 <a href="login&register/">Account</a>
                             </li>
                             <li>
-                                <a href="gallery/">Gallery</a>
+                                <a href="{% url 'ecommerce_app:gallery' %}">Gallery</a>
                             </li>
                             <li>
-                                <a href="about/">About</a>
+                                <a href="{% url 'ecommerce_app:about' %}">About Us</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'ecommerce_app:contact' %}">Contact</a>
                             </li>
                         </ul>
                     </nav><!-- End .mobile-nav -->
@@ -272,10 +283,14 @@
                 <div class="tab-pane fade" id="mobile-cats-tab" role="tabpanel" aria-labelledby="mobile-cats-link">
                     <nav class="mobile-cats-nav">
                         <ul class="mobile-cats-menu">
-                            <li><a href="#">Guppies</a></li>
-                            <li><a href="#">Bettas</a></li>
-                            <li><a href="#">Plants</a></li>
-                            <li><a href="#">Lorem text</a></li>
+                            <li><a href="{% url 'ecommerce_app:allProductListing' %}">Guppies</a></li>
+                            
+
+                            {% for i in links %}
+                                <li><a href="{{i.get_url}}">{{i.name}}</a></li>
+                            {% endfor %}
+
+
                         </ul><!-- End .mobile-cats-menu -->
                     </nav><!-- End .mobile-cats-nav -->
                 </div><!-- .End .tab-pane -->
@@ -435,6 +450,20 @@
     <!-- Main JS File -->
     <script src="{% static 'assets/js/main.js' %}"></script>
     <script src="{% static 'assets/js/demos/demo-4.js' %}"></script>
+    <!-- nave baar link active -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var currentUrl = window.location.href;
+
+            $('.menu a').each(function() {
+                if ($(this).attr('href') === currentUrl) {
+                    $(this).closest('li').addClass('active');
+                }
+            });
+        });
+    </script>
+
 </body>
 
 </html>
